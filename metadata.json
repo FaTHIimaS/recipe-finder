@@ -1,0 +1,6 @@
+{
+  "name": "Recipe Finder",
+  "description": "A 4-screen recipe finder mobile app flow featuring pantry ingredient search, recipe cards, step-by-step cooking details, and a saved recipes grid with offline access.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="128" fill="#FBF7EE"/>
+  <circle cx="256" cy="256" r="200" fill="#2E6F40" fill-opacity="0.08"/>
+  <!-- Cooking bowl & herbs -->
+  <g transform="translate(106, 116)">
+    <!-- Steam / aroma waves -->
+    <path d="M 120 40 Q 135 15 120 -10" stroke="#3D7B48" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.6"/>
+    <path d="M 150 45 Q 165 20 150 -5" stroke="#3D7B48" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.8"/>
+    <path d="M 180 40 Q 195 15 180 -10" stroke="#3D7B48" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.6"/>
+    
+    <!-- Bowl -->
+    <path d="M 20 120 Q 150 120 280 120 Q 270 230 150 250 Q 30 230 20 120 Z" fill="#2D6A4F"/>
+    
+    <!-- Food soup surface -->
+    <ellipse cx="150" cy="120" rx="130" ry="24" fill="#D8F3DC"/>
+    
+    <!-- Basil / Leaf Garnish -->
+    <path d="M 150 120 C 130 90, 100 80, 85 90 C 80 110, 100 130, 150 120 Z" fill="#1B4332"/>
+    <path d="M 150 120 C 170 90, 200 80, 215 90 C 220 110, 200 130, 150 120 Z" fill="#40916C"/>
+    <circle cx="150" cy="115" r="7" fill="#E76F51"/>
+    <circle cx="125" cy="122" r="5" fill="#F4A261"/>
+    <circle cx="178" cy="120" r="6" fill="#E76F51"/>
+    
+    <!-- Fork & Spoon Accent -->
+    <circle cx="150" cy="270" r="14" fill="#2D6A4F"/>
+  </g>
+</svg>
