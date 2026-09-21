@@ -1,0 +1,5 @@
+{
+	"appId": "com.recipefinder.app",
+	"appName": "Recipe Finder",
+	"webDir": "dist"
+}

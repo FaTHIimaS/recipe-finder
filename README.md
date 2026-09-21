@@ -141,6 +141,49 @@ git push
 
 ---
 
+## 📱 Building the Android APK
+
+The project files now include a native Android project generated via **Capacitor** inside the `/android` directory.
+
+### Method 1: Automated Build via GitHub Actions (Zero Setup on your PC)
+
+The repository includes an automated GitHub Actions workflow in `.github/workflows/build-apk.yml`.
+
+1. **Push your code to GitHub**:
+   ```bash
+   git push origin main
+   ```
+2. In your GitHub repository, click on the **Actions** tab at the top.
+3. Select **Build Android APK** from the left sidebar.
+4. Click **Run workflow** (or wait for the automatic run on push).
+5. Once the run completes (~2-3 minutes), scroll down to the **Artifacts** section at the bottom of the summary page and click **RecipeFinder-debug-apk** to download your ready-to-install `app-debug.apk` directly!
+
+---
+
+### Method 2: Build APK Locally with Gradle / Android Studio
+
+If you have Java (JDK 17+) and the Android SDK or Android Studio installed:
+
+```bash
+# 1. Build the web assets and sync them to the Android project
+npm run cap:sync
+
+# 2. Compile the debug APK
+npm run build:apk
+```
+
+The compiled APK will be located at:
+```
+android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+Or open the project directly in Android Studio:
+```bash
+npm run cap:open
+```
+
+---
+
 ## 🌐 Deploying to GitHub Pages (No White Screen)
 
 The project is pre-configured with **relative asset paths (`base: './'`)** and a **React Error Boundary** to prevent the white screen issue on GitHub Pages:
