@@ -10,6 +10,7 @@ coverage/
 dist/
 build/
 dist-ssr/
+dev-dist/
 
 # Environment files and secrets
 .env

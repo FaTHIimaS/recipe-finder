@@ -98,10 +98,30 @@ export default function App() {
         throw new Error('No recipes returned.');
       }
     } catch (err: any) {
-      console.warn('Gemini recipe search error (falling back to curated recipes):', err);
-      setAiError(
-        err?.message || 'Could not reach Gemini Chef. Showing curated recipe matches instead.'
-      );
+      console.warn('Recipe search fallback (static hosting or offline):', err);
+      const { matched } = searchRecipesByIngredients(query, RECIPES_DATA);
+      const fallbackList = (matched.length > 0 ? matched : RECIPES_DATA.slice(0, 3)).map((r) => ({
+        ...r,
+        isAiGenerated: false,
+      }));
+      setAiRecipes(fallbackList);
+      if (fallbackList[0]) {
+        setSelectedRecipe(fallbackList[0]);
+      }
+
+      const isStaticHost =
+        typeof window !== 'undefined' &&
+        (window.location.hostname.includes('github.io') || window.location.protocol === 'file:');
+
+      if (isStaticHost) {
+        setAiError(
+          'GitHub Pages static preview: showing recipes matched from curated culinary collection.'
+        );
+      } else {
+        setAiError(
+          'Could not reach AI recipe service. Showing delicious recipe matches from your pantry.'
+        );
+      }
     } finally {
       setIsAiLoading(false);
     }

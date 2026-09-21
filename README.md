@@ -141,6 +141,29 @@ git push
 
 ---
 
+## 🌐 Deploying to GitHub Pages (No White Screen)
+
+The project is pre-configured with **relative asset paths (`base: './'`)** and a **React Error Boundary** to prevent the white screen issue on GitHub Pages:
+
+### Option A: Automatic Deployment via GitHub Actions (Recommended)
+
+1. Push your repository to GitHub.
+2. In your GitHub repository, go to **Settings** > **Pages**.
+3. Under **Build and deployment** > **Source**, select **GitHub Actions**.
+4. GitHub Actions will automatically run the included workflow (`.github/workflows/deploy.yml`), build the app, and deploy it to `https://<YOUR_USERNAME>.github.io/<REPO_NAME>/`.
+
+### Option B: Deploy from Branch (e.g., `gh-pages` or `/docs`)
+
+If using manual branch deployment:
+```bash
+# Build the project
+npm run build
+
+# The output in dist/ uses relative paths (./assets/...) and works on any subpath
+```
+
+---
+
 ## 📁 Project Structure
 
 ```
