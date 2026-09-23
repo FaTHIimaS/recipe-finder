@@ -33,8 +33,46 @@
         }
       })();
 
-      // Catch any fatal script loading errors or unhandled exceptions before React mounts
+      // If running directly on GitHub Pages from repository root without a build step:
+      // The browser cannot run raw TypeScript /src/main.tsx.
+      // Automatically load the pre-compiled production bundle instead!
+      if (window.location.hostname.includes('github.io')) {
+        // Prevent default error banner when browser tries to request /src/main.tsx
+        window.addEventListener('error', function(e) {
+          if (e.target && e.target.src && e.target.src.indexOf('main.tsx') !== -1) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+        }, true);
+
+        // Dynamically inject compiled production stylesheet and javascript bundle
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.crossOrigin = 'anonymous';
+        link.href = './assets/index.css';
+        document.head.appendChild(link);
+
+        var script = document.createElement('script');
+        script.type = 'module';
+        script.crossOrigin = 'anonymous';
+        script.src = './assets/index.js';
+        script.onerror = function() {
+          // Fallback to ./docs/assets/ if root assets/ is unavailable
+          var fallbackScript = document.createElement('script');
+          fallbackScript.type = 'module';
+          fallbackScript.crossOrigin = 'anonymous';
+          fallbackScript.src = './docs/assets/index.js';
+          document.body.appendChild(fallbackScript);
+        };
+        document.body.appendChild(script);
+      }
+
+      // Catch any other unexpected fatal errors before React mounts
       window.addEventListener('error', function(e) {
+        if (e.target && e.target.src && e.target.src.indexOf('main.tsx') !== -1) {
+          return; // Ignore raw main.tsx error as production bundle is injected
+        }
         var root = document.getElementById('root');
         var loader = document.getElementById('app-initial-loader');
         if (root && loader) {
