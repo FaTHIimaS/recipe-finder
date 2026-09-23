@@ -18,6 +18,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      // Automatically ensure trailing slash on GitHub Pages so asset paths resolve correctly
+      (function() {
+        if (window.location.hostname.includes('github.io')) {
+          var segments = window.location.pathname.split('/').filter(Boolean);
+          if (segments.length === 1 && !window.location.pathname.endsWith('/')) {
+            window.location.replace(window.location.pathname + '/' + window.location.search + window.location.hash);
+          }
+        }
+      })();
+    </script>
   </head>
   <body class="bg-[#FDFBF7] text-[#3A3530] antialiased selection:bg-[#5A7D5B]/20 selection:text-[#5A7D5B]">
     <div id="root"></div>
