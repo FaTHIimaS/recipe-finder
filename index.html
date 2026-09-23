@@ -21,17 +21,54 @@
     <script>
       // Automatically ensure trailing slash on GitHub Pages so asset paths resolve correctly
       (function() {
-        if (window.location.hostname.includes('github.io')) {
-          var segments = window.location.pathname.split('/').filter(Boolean);
-          if (segments.length === 1 && !window.location.pathname.endsWith('/')) {
-            window.location.replace(window.location.pathname + '/' + window.location.search + window.location.hash);
+        try {
+          if (window.location.hostname.includes('github.io')) {
+            var path = window.location.pathname;
+            if (path.length > 1 && !path.endsWith('/') && !path.split('/').pop().includes('.')) {
+              window.location.replace(path + '/' + window.location.search + window.location.hash);
+            }
           }
+        } catch (e) {
+          console.warn('Path check error:', e);
         }
       })();
+
+      // Catch any fatal script loading errors or unhandled exceptions before React mounts
+      window.addEventListener('error', function(e) {
+        var root = document.getElementById('root');
+        var loader = document.getElementById('app-initial-loader');
+        if (root && loader) {
+          var errorMsg = e.message || (e.target && e.target.src ? 'Failed to load script: ' + e.target.src : 'Initialization failed');
+          root.innerHTML = '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#FDFBF7;padding:20px;font-family:system-ui,-apple-system,sans-serif;color:#3A3530;box-sizing:border-box;">' +
+            '<div style="max-width:440px;width:100%;background:#ffffff;border:1px solid #E8E2D9;border-radius:24px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,0.06);text-align:center;">' +
+            '<div style="width:48px;height:48px;background:#FEE2E2;color:#DC2626;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px;">⚠️</div>' +
+            '<h2 style="margin:0 0 8px;font-size:19px;font-weight:700;color:#2D2823;">Application Startup Error</h2>' +
+            '<p style="margin:0 0 16px;font-size:13px;color:#70685E;line-height:1.5;">' + errorMsg + '</p>' +
+            '<div style="background:#F7F4EE;border-radius:12px;padding:14px;text-align:left;font-size:12px;line-height:1.6;color:#554E45;margin-bottom:20px;">' +
+            '<strong>How to resolve on GitHub:</strong><br>' +
+            '1. Go to your GitHub repository <strong>Settings → Pages</strong><br>' +
+            '2. Under <strong>Build and deployment → Source</strong>, select <strong>GitHub Actions</strong><br>' +
+            '3. Check the <strong>Actions</strong> tab to verify the deployment succeeded.' +
+            '</div>' +
+            '<button onclick="location.reload()" style="background:#5A7D5B;color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:600;font-size:13px;cursor:pointer;">Retry Loading</button>' +
+            '</div></div>';
+        }
+      }, true);
     </script>
   </head>
   <body class="bg-[#FDFBF7] text-[#3A3530] antialiased selection:bg-[#5A7D5B]/20 selection:text-[#5A7D5B]">
-    <div id="root"></div>
+    <div id="root">
+      <div id="app-initial-loader" style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #FDFBF7; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #3A3530;">
+        <div style="width: 56px; height: 56px; border-radius: 16px; background-color: rgba(90, 125, 91, 0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5A7D5B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
+            <line x1="6" y1="17" x2="18" y2="17"/>
+          </svg>
+        </div>
+        <div style="font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px;">Recipe Finder</div>
+        <div style="font-size: 13px; color: #8A8276;">Loading recipes...</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
